@@ -1,0 +1,16 @@
+FishHessianCpp
+
+It is a hessian protocol client for C++
+
+It is also depend libcurl,so you should install libcurl first.
+
+Work:
+1.It support null , boolean , int ,long , float , double ,date ,xml,binary,list ,map and object
+2.It is very fast!
+3.It is easy , you need't to consider memory , FishHessianCpp will AutoFree Memory!
+4.It is use hessian 1.0 protocol
+
+ToDo:
+1.support ssl
+2.support reference
+
