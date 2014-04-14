@@ -16,7 +16,7 @@ endif
 .depend:$(SRC)
 	g++ -c -MM $(SRC) $(INC) > .depend
 clean:
-	-rm *.o $(OUT)
+	-rm *.o $(OUT) .depend
 run:
 	./a.out
 

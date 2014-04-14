@@ -64,11 +64,11 @@ void HessianDeSerialize::DeSerializeEnd( const std::string& strData , uint32_t &
 ObjectPtr HessianDeSerialize::DeSerializeNull( const std::string& strData , uint32_t & dwPointer ){
 	ExpectedChar('N',strData,dwPointer);
 	MoveNext(strData,dwPointer);
-	NullPtr object( new Null() );
+	NullPtr object;
 	return object;
 }
 ObjectPtr HessianDeSerialize::DeSerializeBoolean( const std::string& strData , uint32_t & dwPointer ){
-	BooleanPtr object( new Boolean() );
+	BooleanPtr object;
 	if( GetChar(strData,dwPointer) == 'T')
 		object->Value() = true;
 	else if( GetChar(strData,dwPointer) == 'F' )
@@ -86,7 +86,7 @@ ObjectPtr HessianDeSerialize::DeSerializeInteger( const std::string& strData , u
 	buffer[2] = MoveNext(strData,dwPointer);
 	buffer[1] = MoveNext(strData,dwPointer);
 	buffer[0] = MoveNext(strData,dwPointer);
-	IntegerPtr object( new Integer() );
+	IntegerPtr object;
 	object->Value() = *(int32_t*)buffer;
 	return object;
 }
@@ -102,7 +102,7 @@ ObjectPtr HessianDeSerialize::DeSerializeLong( const std::string& strData , uint
 	buffer[2] = MoveNext(strData,dwPointer);
 	buffer[1] = MoveNext(strData,dwPointer);
 	buffer[0] = MoveNext(strData,dwPointer);
-	LongPtr object( new Long() );
+	LongPtr object;
 	object->Value() = *(int64_t*)buffer;
 	return object;
 }
@@ -118,7 +118,7 @@ ObjectPtr HessianDeSerialize::DeSerializeDate( const std::string& strData , uint
 	buffer[2] = MoveNext(strData,dwPointer);
 	buffer[1] = MoveNext(strData,dwPointer);
 	buffer[0] = MoveNext(strData,dwPointer);
-	DatePtr object( new Date() );
+	DatePtr object;
 	object->Value() = *(int64_t*)buffer;
 	return object;
 }
@@ -134,12 +134,12 @@ ObjectPtr HessianDeSerialize::DeSerializeDouble( const std::string& strData , ui
 	buffer[2] = MoveNext(strData,dwPointer);
 	buffer[1] = MoveNext(strData,dwPointer);
 	buffer[0] = MoveNext(strData,dwPointer);
-	DoublePtr object( new Double() );
+	DoublePtr object;
 	object->Value() = *(double*)buffer;
 	return object;
 }
 ObjectPtr HessianDeSerialize::DeSerializeString( const std::string& strData , uint32_t & dwPointer ){
-	StringPtr object( new String() );
+	StringPtr object;
 	while( GetChar(strData,dwPointer) == 's' ){
 		MoveNext(strData,dwPointer);
 		char buffer[2];
@@ -164,7 +164,7 @@ ObjectPtr HessianDeSerialize::DeSerializeString( const std::string& strData , ui
 	return object;
 }
 ObjectPtr HessianDeSerialize::DeSerializeXml( const std::string& strData , uint32_t & dwPointer ){
-	XmlPtr object( new Xml() );
+	XmlPtr object;
 	while( GetChar(strData,dwPointer) == 'x' ){
 		MoveNext(strData,dwPointer);
 		char buffer[2];
@@ -189,7 +189,7 @@ ObjectPtr HessianDeSerialize::DeSerializeXml( const std::string& strData , uint3
 	return object;
 }
 ObjectPtr HessianDeSerialize::DeSerializeBinary( const std::string& strData , uint32_t & dwPointer ){
-	BinaryPtr object( new Binary() );
+	BinaryPtr object;
 	while( GetChar(strData,dwPointer) == 'b' ){
 		MoveNext(strData,dwPointer);
 		char buffer[2];
@@ -214,7 +214,7 @@ ObjectPtr HessianDeSerialize::DeSerializeBinary( const std::string& strData , ui
 	return object;
 }
 ObjectPtr HessianDeSerialize::DeSerializeList( const std::string& strData , uint32_t & dwPointer ){
-	ListPtr object( new List() );
+	ListPtr object;
 	ExpectedChar('V',strData,dwPointer);
 	MoveNext(strData,dwPointer);
 	if( GetChar(strData,dwPointer) == 't' ){
@@ -242,7 +242,7 @@ ObjectPtr HessianDeSerialize::DeSerializeList( const std::string& strData , uint
 	return object;
 }
 ObjectPtr HessianDeSerialize::DeSerializeMap( const std::string& strData , uint32_t & dwPointer ){
-	MapPtr object( new Map() );
+	MapPtr object;
 	ExpectedChar('M',strData,dwPointer);
 	MoveNext(strData,dwPointer);
 	if( GetChar(strData,dwPointer) == 't' ){
@@ -266,7 +266,7 @@ ObjectPtr HessianDeSerialize::DeSerializeMap( const std::string& strData , uint3
 	return object;
 }
 ObjectPtr HessianDeSerialize::DeSerializeRemote( const std::string& strData , uint32_t & dwPointer ){
-	RemotePtr object( new Remote() );
+	RemotePtr object;
 	ExpectedChar('r',strData,dwPointer);
 	MoveNext(strData,dwPointer);
 	//读取类型信息
@@ -294,7 +294,7 @@ ObjectPtr HessianDeSerialize::DeSerializeRemote( const std::string& strData , ui
 	return object;
 }
 ObjectPtr HessianDeSerialize::DeSerializeHeader( const std::string& strData , uint32_t & dwPointer ){
-	HeaderPtr object( new Header() );
+	HeaderPtr object;
 	ExpectedChar('H',strData,dwPointer);
 	MoveNext(strData,dwPointer);
 	//读取Name信息
@@ -311,7 +311,7 @@ ObjectPtr HessianDeSerialize::DeSerializeHeader( const std::string& strData , ui
 	return object;
 }
 ObjectPtr HessianDeSerialize::DeSerializeFault( const std::string& strData , uint32_t & dwPointer ){
-	FaultPtr object( new Fault() );
+	FaultPtr object;
 	ExpectedChar('f',strData,dwPointer);
 	MoveNext(strData,dwPointer);
 	while(GetChar(strData,dwPointer) != 'z' ){

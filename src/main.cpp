@@ -11,16 +11,16 @@ std::string DumpData( ObjectPtr ptr ){
 void testSerialize(){
 	try{
 		Hessian hessian("http://127.0.0.1:8080/myapps/Hello");
-		ListPtr list( new List() );
-		list->Value().push_back( StringPtr( new String("123")));
-		list->Value().push_back( StringPtr( new String("123")));
-		MapPtr map( new Map() );
-		map->Value().insert( make_pair(StringPtr( new String("11")), StringPtr( new String("fish1"))));
-		map->Value().insert( make_pair(StringPtr( new String("12")), StringPtr( new String("fish2"))));
-		MapPtr myHello( new Map() );
+		ListPtr list;
+		list->Value().push_back( StringPtr("123"));
+		list->Value().push_back( StringPtr("123") );
+		MapPtr map;
+		map->Value().insert( make_pair(StringPtr( "11"), StringPtr( "fish1")));
+		map->Value().insert( make_pair(StringPtr( "12"), StringPtr( "fish2")));
+		MapPtr myHello;
 		myHello->Class() = "fish.MyHello";
-		myHello->Value().insert( make_pair(StringPtr( new String("CarName")), StringPtr( new String("name"))));
-		myHello->Value().insert( make_pair(StringPtr( new String("CarModel")), StringPtr( new String("model"))));
+		myHello->Value().insert( make_pair(StringPtr( "carName"), StringPtr("name")));
+		myHello->Value().insert( make_pair(StringPtr( "carModel"), StringPtr( "model")));
 		vector<ObjectPtr> vecArgv;
 		ObjectPtr result;
 		
@@ -98,26 +98,26 @@ void testDeSerialize(){
 void testAll(){
 	try{
 		Hessian hessian("http://127.0.0.1:8080/myapps/Hello");
-		BooleanPtr booleanPtr( new Boolean(true));
-		IntegerPtr integerPtr( new Integer(123) );
-		LongPtr longPtr( new Long(456) );
-		DatePtr datePtr( new Date( time(NULL) ) );
-		DoublePtr doublePtr( new Double(123.45) );
-		StringPtr stringPtr( new String("Hello Fish") );
-		ListPtr listPtr( new List() );
-		listPtr->Value().push_back( StringPtr( new String("fish1")));
-		listPtr->Value().push_back( StringPtr( new String("fish2")));
-		MapPtr mapPtr( new Map() );
-		mapPtr->Value().insert( make_pair(IntegerPtr( new Integer(11)), StringPtr( new String("fish1"))));
-		mapPtr->Value().insert( make_pair(StringPtr( new String("12")), StringPtr( new String("fish2"))));
-		MapPtr myHelloPtr( new Map() );
+		BooleanPtr booleanPtr( true);
+		IntegerPtr integerPtr(123);
+		LongPtr longPtr( 456 );
+		DatePtr datePtr(time(NULL)  );
+		DoublePtr doublePtr( 123.45 );
+		StringPtr stringPtr( "Hello Fish" );
+		ListPtr listPtr;
+		listPtr->Value().push_back( StringPtr("fish1"));
+		listPtr->Value().push_back( StringPtr( "fish2"));
+		MapPtr mapPtr;
+		mapPtr->Value().insert( make_pair(IntegerPtr(11), StringPtr("fish1")));
+		mapPtr->Value().insert( make_pair(StringPtr("12"), StringPtr( "fish2")));
+		MapPtr myHelloPtr;
 		myHelloPtr->Class() = "fish.MyHello";
-		myHelloPtr->Value().insert( make_pair(StringPtr( new String("carName")), StringPtr( new String("name"))));
-		myHelloPtr->Value().insert( make_pair(StringPtr( new String("carModel")), StringPtr( new String("model"))));
-		MapPtr veryComplicateObject( new Map() );
-		veryComplicateObject->Value().insert( make_pair(myHelloPtr, StringPtr( new String("name"))) );
-		veryComplicateObject->Value().insert( make_pair(mapPtr, StringPtr( new String("name"))) );
-		veryComplicateObject->Value().insert( make_pair(listPtr, StringPtr( new String("name"))) );
+		myHelloPtr->Value().insert( make_pair(StringPtr( "carName"), StringPtr( "name")));
+		myHelloPtr->Value().insert( make_pair(StringPtr( "carModel"), StringPtr( "model")));
+		MapPtr veryComplicateObject;
+		veryComplicateObject->Value().insert( make_pair(myHelloPtr, StringPtr( "name")) );
+		veryComplicateObject->Value().insert( make_pair(mapPtr, StringPtr( "name")) );
+		veryComplicateObject->Value().insert( make_pair(listPtr, StringPtr( "name")) );
 		
 		std::string functionPtr[] = {"getBooleanFromBoolean",
 				"getIntFromInt",

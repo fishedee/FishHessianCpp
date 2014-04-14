@@ -17,6 +17,47 @@ public:
 };
 typedef std::tr1::shared_ptr<Object> ObjectPtr;
 typedef std::tr1::weak_ptr<Object> WeakObjectPtr;
+class Null:public Object{
+public:
+	void DumpDataTree( std::ostream& os )const{
+		os<<"[Null]";
+	}
+};
+class NullPtr:public std::tr1::shared_ptr<Null>{
+public:
+	NullPtr():std::tr1::shared_ptr<Null>( new Null() ){
+	}
+	template<typename T1>
+	NullPtr( const T1& a ):std::tr1::shared_ptr<Null>( new Null() ){
+	}
+};
+class Boolean:public Object{
+public:
+	Boolean(){
+	}
+	Boolean( bool data ){
+		m_data = data;
+	}
+	bool& Value(){
+		return m_data;
+	}
+	const bool& Value()const{
+		return m_data;
+	}
+	void DumpDataTree( std::ostream& os )const{
+		os << "[Boolean:"<<m_data<<"]";
+	}
+private:
+	bool m_data;
+};
+class BooleanPtr:public std::tr1::shared_ptr<Boolean>{
+public:
+	BooleanPtr():std::tr1::shared_ptr<Boolean>( new Boolean() ){
+	}
+	template<typename T1>
+	BooleanPtr( const T1& a ):std::tr1::shared_ptr<Boolean>( new Boolean(a)){
+	}
+};
 class Integer:public Object{
 public:
 	Integer(){
@@ -37,7 +78,14 @@ public:
 private:
 	int32_t m_data;
 };
-typedef std::tr1::shared_ptr<Integer> IntegerPtr;
+class IntegerPtr:public std::tr1::shared_ptr<Integer>{
+public:
+	IntegerPtr():std::tr1::shared_ptr<Integer>( new Integer() ){
+	}
+	template<typename T1>
+	IntegerPtr( const T1& a ):std::tr1::shared_ptr<Integer>( new Integer(a)){
+	}
+};
 class Long:public Object{
 public:
 	Long(){
@@ -58,7 +106,14 @@ public:
 private:
 	int64_t m_data;
 };
-typedef std::tr1::shared_ptr<Long> LongPtr;
+class LongPtr:public std::tr1::shared_ptr<Long>{
+public:
+	LongPtr():std::tr1::shared_ptr<Long>( new Long() ){
+	}
+	template<typename T1>
+	LongPtr( const T1& a ):std::tr1::shared_ptr<Long>( new Long(a)){
+	}
+};
 class Double:public Object{
 public:
 	Double(){
@@ -79,27 +134,14 @@ public:
 private:
 	double m_data;
 };
-typedef std::tr1::shared_ptr<Double> DoublePtr;
-class Boolean:public Object{
+class DoublePtr:public std::tr1::shared_ptr<Double>{
 public:
-	Boolean(){
+	DoublePtr():std::tr1::shared_ptr<Double>( new Double() ){
 	}
-	Boolean( bool data ){
-		m_data = data;
+	template<typename T1>
+	DoublePtr( const T1& a ):std::tr1::shared_ptr<Double>( new Double(a)){
 	}
-	bool& Value(){
-		return m_data;
-	}
-	const bool& Value()const{
-		return m_data;
-	}
-	void DumpDataTree( std::ostream& os )const{
-		os << "[Boolean:"<<m_data<<"]";
-	}
-private:
-	bool m_data;
 };
-typedef std::tr1::shared_ptr<Boolean> BooleanPtr;
 class Date:public Object{
 public:
 	Date(){
@@ -120,7 +162,14 @@ public:
 private:
 	time_t m_data;
 };
-typedef std::tr1::shared_ptr<Date> DatePtr;
+class DatePtr:public std::tr1::shared_ptr<Date>{
+public:
+	DatePtr():std::tr1::shared_ptr<Date>( new Date() ){
+	}
+	template<typename T1>
+	DatePtr( const T1& a ):std::tr1::shared_ptr<Date>( new Date(a)){
+	}
+};
 class String:public Object{
 public:
 	String(){
@@ -140,7 +189,14 @@ public:
 private:
 	std::string m_data;
 };
-typedef std::tr1::shared_ptr<String> StringPtr;
+class StringPtr:public std::tr1::shared_ptr<String>{
+public:
+	StringPtr():std::tr1::shared_ptr<String>( new String() ){
+	}
+	template<typename T1>
+	StringPtr( const T1& a ):std::tr1::shared_ptr<String>( new String(a)){
+	}
+};
 class Binary:public Object{
 public:
 	Binary(){
@@ -160,14 +216,14 @@ public:
 private:
 	std::string m_data;
 };
-typedef std::tr1::shared_ptr<Binary> BinaryPtr;
-class Null:public Object{
+class BinaryPtr:public std::tr1::shared_ptr<Binary>{
 public:
-	void DumpDataTree( std::ostream& os )const{
-		os<<"[Null]";
+	BinaryPtr():std::tr1::shared_ptr<Binary>( new Binary() ){
+	}
+	template<typename T1>
+	BinaryPtr( const T1& a ):std::tr1::shared_ptr<Binary>( new Binary(a)){
 	}
 };
-typedef std::tr1::shared_ptr<Null> NullPtr;
 class Xml:public Object{
 public:
 	Xml(){
@@ -187,7 +243,14 @@ public:
 private:
 	std::string m_data;
 };
-typedef std::tr1::shared_ptr<Xml> XmlPtr;
+class XmlPtr:public std::tr1::shared_ptr<Xml>{
+public:
+	XmlPtr():std::tr1::shared_ptr<Xml>( new Xml() ){
+	}
+	template<typename T1>
+	XmlPtr( const T1& a ):std::tr1::shared_ptr<Xml>( new Xml(a)){
+	}
+};
 class Remote:public Object{
 public:
 	Remote(){
@@ -218,7 +281,14 @@ private:
 	std::string m_data;
 	std::string m_strClassName;
 };
-typedef std::tr1::shared_ptr<Remote> RemotePtr;
+class RemotePtr:public std::tr1::shared_ptr<Remote>{
+public:
+	RemotePtr():std::tr1::shared_ptr<Remote>( new Remote() ){
+	}
+	template<typename T1,typename T2>
+	RemotePtr( const T1& a ,const T2& b):std::tr1::shared_ptr<Remote>( new Remote(a,b)){
+	}
+};
 class List:public Object{
 public:
 	List(){
@@ -253,7 +323,14 @@ private:
 	std::string m_strClassName;
 	std::vector<ObjectPtr>  m_data;
 };
-typedef std::tr1::shared_ptr<List> ListPtr;
+class ListPtr:public std::tr1::shared_ptr<List>{
+public:
+	ListPtr():std::tr1::shared_ptr<List>( new List() ){
+	}
+	template<typename T1,typename T2>
+	ListPtr( const T1& a ,const T2& b):std::tr1::shared_ptr<List>( new List(a,b)){
+	}
+};
 class Map:public Object{
 public:
 	Map(){
@@ -292,7 +369,14 @@ private:
 	std::string m_strClassName;
 	std::map<ObjectPtr,ObjectPtr>  m_data;
 };
-typedef std::tr1::shared_ptr<Map> MapPtr;
+class MapPtr:public std::tr1::shared_ptr<Map>{
+public:
+	MapPtr():std::tr1::shared_ptr<Map>( new Map() ){
+	}
+	template<typename T1,typename T2>
+	MapPtr( const T1& a ,const T2& b):std::tr1::shared_ptr<Map>( new Map(a,b)){
+	}
+};
 class Fault:public Object{
 public:
 	Fault(){
@@ -322,7 +406,14 @@ public:
 private:
 	std::map<ObjectPtr,ObjectPtr>  m_data;
 };
-typedef std::tr1::shared_ptr<Fault> FaultPtr;
+class FaultPtr:public std::tr1::shared_ptr<Fault>{
+public:
+	FaultPtr():std::tr1::shared_ptr<Fault>( new Fault() ){
+	}
+	template<typename T1>
+	FaultPtr( const T1& a ):std::tr1::shared_ptr<Fault>( new Fault(a)){
+	}
+};
 class Reference:public Object{
 public:
 	Reference(){
@@ -343,7 +434,14 @@ public:
 private:
 	WeakObjectPtr m_data;
 };
-typedef std::tr1::shared_ptr<Reference> ReferencePtr;
+class ReferencePtr:public std::tr1::shared_ptr<ReferencePtr>{
+public:
+	ReferencePtr():std::tr1::shared_ptr<ReferencePtr>( new ReferencePtr() ){
+	}
+	template<typename T1>
+	ReferencePtr( const T1& a ):std::tr1::shared_ptr<ReferencePtr>( new ReferencePtr(a)){
+	}
+};
 class Header:public Object{
 public:
 	Header(){
@@ -376,7 +474,14 @@ private:
 	std::string m_strName;
 	ObjectPtr m_data;
 };
-typedef std::tr1::shared_ptr<Header> HeaderPtr;
+class HeaderPtr:public std::tr1::shared_ptr<Header>{
+public:
+	HeaderPtr():std::tr1::shared_ptr<Header>( new Header() ){
+	}
+	template<typename T1>
+	HeaderPtr( const T1& a ):std::tr1::shared_ptr<Header>( new Header(a)){
+	}
+};
 }
 
 #endif
